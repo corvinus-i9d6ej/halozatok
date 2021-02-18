@@ -1,0 +1,500 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="StudiesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Course">
+          <Key>
+            <PropertyRef Name="CourseSK" />
+          </Key>
+          <Property Name="CourseSK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Code" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Day">
+          <Key>
+            <PropertyRef Name="DayID" />
+          </Key>
+          <Property Name="DayID" Type="tinyint" Nullable="false" />
+          <Property Name="Name" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Employement">
+          <Key>
+            <PropertyRef Name="EmployementID" />
+          </Key>
+          <Property Name="EmployementID" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Instructor">
+          <Key>
+            <PropertyRef Name="InstructorSK" />
+          </Key>
+          <Property Name="InstructorSK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Salutation" Type="nvarchar" MaxLength="10" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="StatusFK" Type="tinyint" />
+          <Property Name="EmployementFK" Type="char" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="Lesson">
+          <Key>
+            <PropertyRef Name="LessonSK" />
+          </Key>
+          <Property Name="LessonSK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CourseFK" Type="int" />
+          <Property Name="InstructorFK" Type="int" />
+          <Property Name="DayFK" Type="tinyint" />
+          <Property Name="TimeFK" Type="tinyint" />
+          <Property Name="RoomFK" Type="int" />
+        </EntityType>
+        <EntityType Name="Room">
+          <Key>
+            <PropertyRef Name="RoomSK" />
+          </Key>
+          <Property Name="RoomSK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="StatusID" />
+          </Key>
+          <Property Name="StatusID" Type="tinyint" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="Time">
+          <Key>
+            <PropertyRef Name="TimeID" />
+          </Key>
+          <Property Name="TimeID" Type="tinyint" Nullable="false" />
+          <Property Name="Name" Type="char" MaxLength="11" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Instructor_ToEmployement">
+          <End Role="Employement" Type="Self.Employement" Multiplicity="0..1" />
+          <End Role="Instructor" Type="Self.Instructor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employement">
+              <PropertyRef Name="EmployementID" />
+            </Principal>
+            <Dependent Role="Instructor">
+              <PropertyRef Name="EmployementFK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Instructor_ToStatus">
+          <End Role="Status" Type="Self.Status" Multiplicity="0..1" />
+          <End Role="Instructor" Type="Self.Instructor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusID" />
+            </Principal>
+            <Dependent Role="Instructor">
+              <PropertyRef Name="StatusFK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lesson_ToCourse">
+          <End Role="Course" Type="Self.Course" Multiplicity="0..1" />
+          <End Role="Lesson" Type="Self.Lesson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseSK" />
+            </Principal>
+            <Dependent Role="Lesson">
+              <PropertyRef Name="CourseFK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lesson_ToDay">
+          <End Role="Day" Type="Self.Day" Multiplicity="0..1" />
+          <End Role="Lesson" Type="Self.Lesson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Day">
+              <PropertyRef Name="DayID" />
+            </Principal>
+            <Dependent Role="Lesson">
+              <PropertyRef Name="DayFK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lesson_ToInstructor">
+          <End Role="Instructor" Type="Self.Instructor" Multiplicity="0..1" />
+          <End Role="Lesson" Type="Self.Lesson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Instructor">
+              <PropertyRef Name="InstructorSK" />
+            </Principal>
+            <Dependent Role="Lesson">
+              <PropertyRef Name="InstructorFK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lesson_ToRoom">
+          <End Role="Room" Type="Self.Room" Multiplicity="0..1" />
+          <End Role="Lesson" Type="Self.Lesson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Room">
+              <PropertyRef Name="RoomSK" />
+            </Principal>
+            <Dependent Role="Lesson">
+              <PropertyRef Name="RoomFK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lesson_ToTime">
+          <End Role="Time" Type="Self.Time" Multiplicity="0..1" />
+          <End Role="Lesson" Type="Self.Lesson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Time">
+              <PropertyRef Name="TimeID" />
+            </Principal>
+            <Dependent Role="Lesson">
+              <PropertyRef Name="TimeFK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="StudiesModelStoreContainer">
+          <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Day" EntityType="Self.Day" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employement" EntityType="Self.Employement" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Instructor" EntityType="Self.Instructor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Lesson" EntityType="Self.Lesson" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Room" EntityType="Self.Room" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Time" EntityType="Self.Time" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Instructor_ToEmployement" Association="Self.FK_Instructor_ToEmployement">
+            <End Role="Employement" EntitySet="Employement" />
+            <End Role="Instructor" EntitySet="Instructor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Instructor_ToStatus" Association="Self.FK_Instructor_ToStatus">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Instructor" EntitySet="Instructor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lesson_ToCourse" Association="Self.FK_Lesson_ToCourse">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="Lesson" EntitySet="Lesson" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lesson_ToDay" Association="Self.FK_Lesson_ToDay">
+            <End Role="Day" EntitySet="Day" />
+            <End Role="Lesson" EntitySet="Lesson" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lesson_ToInstructor" Association="Self.FK_Lesson_ToInstructor">
+            <End Role="Instructor" EntitySet="Instructor" />
+            <End Role="Lesson" EntitySet="Lesson" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lesson_ToRoom" Association="Self.FK_Lesson_ToRoom">
+            <End Role="Room" EntitySet="Room" />
+            <End Role="Lesson" EntitySet="Lesson" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lesson_ToTime" Association="Self.FK_Lesson_ToTime">
+            <End Role="Time" EntitySet="Time" />
+            <End Role="Lesson" EntitySet="Lesson" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="StudiesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Course">
+          <Key>
+            <PropertyRef Name="CourseSK" />
+          </Key>
+          <Property Name="CourseSK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Code" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Lessons" Relationship="Self.FK_Lesson_ToCourse" FromRole="Course" ToRole="Lesson" />
+        </EntityType>
+        <EntityType Name="Day">
+          <Key>
+            <PropertyRef Name="DayID" />
+          </Key>
+          <Property Name="DayID" Type="Byte" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Lessons" Relationship="Self.FK_Lesson_ToDay" FromRole="Day" ToRole="Lesson" />
+        </EntityType>
+        <EntityType Name="Employement">
+          <Key>
+            <PropertyRef Name="EmployementID" />
+          </Key>
+          <Property Name="EmployementID" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Instructors" Relationship="Self.FK_Instructor_ToEmployement" FromRole="Employement" ToRole="Instructor" />
+        </EntityType>
+        <EntityType Name="Instructor">
+          <Key>
+            <PropertyRef Name="InstructorSK" />
+          </Key>
+          <Property Name="InstructorSK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Salutation" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StatusFK" Type="Byte" />
+          <Property Name="EmployementFK" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="Employement" Relationship="Self.FK_Instructor_ToEmployement" FromRole="Instructor" ToRole="Employement" />
+          <NavigationProperty Name="Status" Relationship="Self.FK_Instructor_ToStatus" FromRole="Instructor" ToRole="Status" />
+          <NavigationProperty Name="Lessons" Relationship="Self.FK_Lesson_ToInstructor" FromRole="Instructor" ToRole="Lesson" />
+        </EntityType>
+        <EntityType Name="Lesson">
+          <Key>
+            <PropertyRef Name="LessonSK" />
+          </Key>
+          <Property Name="LessonSK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CourseFK" Type="Int32" />
+          <Property Name="InstructorFK" Type="Int32" />
+          <Property Name="DayFK" Type="Byte" />
+          <Property Name="TimeFK" Type="Byte" />
+          <Property Name="RoomFK" Type="Int32" />
+          <NavigationProperty Name="Course" Relationship="Self.FK_Lesson_ToCourse" FromRole="Lesson" ToRole="Course" />
+          <NavigationProperty Name="Day" Relationship="Self.FK_Lesson_ToDay" FromRole="Lesson" ToRole="Day" />
+          <NavigationProperty Name="Instructor" Relationship="Self.FK_Lesson_ToInstructor" FromRole="Lesson" ToRole="Instructor" />
+          <NavigationProperty Name="Room" Relationship="Self.FK_Lesson_ToRoom" FromRole="Lesson" ToRole="Room" />
+          <NavigationProperty Name="Time" Relationship="Self.FK_Lesson_ToTime" FromRole="Lesson" ToRole="Time" />
+        </EntityType>
+        <EntityType Name="Room">
+          <Key>
+            <PropertyRef Name="RoomSK" />
+          </Key>
+          <Property Name="RoomSK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Lessons" Relationship="Self.FK_Lesson_ToRoom" FromRole="Room" ToRole="Lesson" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="StatusID" />
+          </Key>
+          <Property Name="StatusID" Type="Byte" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Instructors" Relationship="Self.FK_Instructor_ToStatus" FromRole="Status" ToRole="Instructor" />
+        </EntityType>
+        <EntityType Name="Time">
+          <Key>
+            <PropertyRef Name="TimeID" />
+          </Key>
+          <Property Name="TimeID" Type="Byte" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="11" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Lessons" Relationship="Self.FK_Lesson_ToTime" FromRole="Time" ToRole="Lesson" />
+        </EntityType>
+        <Association Name="FK_Lesson_ToCourse">
+          <End Role="Course" Type="Self.Course" Multiplicity="0..1" />
+          <End Role="Lesson" Type="Self.Lesson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseSK" />
+            </Principal>
+            <Dependent Role="Lesson">
+              <PropertyRef Name="CourseFK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lesson_ToDay">
+          <End Role="Day" Type="Self.Day" Multiplicity="0..1" />
+          <End Role="Lesson" Type="Self.Lesson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Day">
+              <PropertyRef Name="DayID" />
+            </Principal>
+            <Dependent Role="Lesson">
+              <PropertyRef Name="DayFK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Instructor_ToEmployement">
+          <End Role="Employement" Type="Self.Employement" Multiplicity="0..1" />
+          <End Role="Instructor" Type="Self.Instructor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employement">
+              <PropertyRef Name="EmployementID" />
+            </Principal>
+            <Dependent Role="Instructor">
+              <PropertyRef Name="EmployementFK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Instructor_ToStatus">
+          <End Role="Status" Type="Self.Status" Multiplicity="0..1" />
+          <End Role="Instructor" Type="Self.Instructor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusID" />
+            </Principal>
+            <Dependent Role="Instructor">
+              <PropertyRef Name="StatusFK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lesson_ToInstructor">
+          <End Role="Instructor" Type="Self.Instructor" Multiplicity="0..1" />
+          <End Role="Lesson" Type="Self.Lesson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Instructor">
+              <PropertyRef Name="InstructorSK" />
+            </Principal>
+            <Dependent Role="Lesson">
+              <PropertyRef Name="InstructorFK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lesson_ToRoom">
+          <End Role="Room" Type="Self.Room" Multiplicity="0..1" />
+          <End Role="Lesson" Type="Self.Lesson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Room">
+              <PropertyRef Name="RoomSK" />
+            </Principal>
+            <Dependent Role="Lesson">
+              <PropertyRef Name="RoomFK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lesson_ToTime">
+          <End Role="Time" Type="Self.Time" Multiplicity="0..1" />
+          <End Role="Lesson" Type="Self.Lesson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Time">
+              <PropertyRef Name="TimeID" />
+            </Principal>
+            <Dependent Role="Lesson">
+              <PropertyRef Name="TimeFK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="StudiesEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Courses" EntityType="Self.Course" />
+          <EntitySet Name="Days" EntityType="Self.Day" />
+          <EntitySet Name="Employements" EntityType="Self.Employement" />
+          <EntitySet Name="Instructors" EntityType="Self.Instructor" />
+          <EntitySet Name="Lessons" EntityType="Self.Lesson" />
+          <EntitySet Name="Rooms" EntityType="Self.Room" />
+          <EntitySet Name="Status" EntityType="Self.Status" />
+          <EntitySet Name="Times" EntityType="Self.Time" />
+          <AssociationSet Name="FK_Lesson_ToCourse" Association="Self.FK_Lesson_ToCourse">
+            <End Role="Course" EntitySet="Courses" />
+            <End Role="Lesson" EntitySet="Lessons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lesson_ToDay" Association="Self.FK_Lesson_ToDay">
+            <End Role="Day" EntitySet="Days" />
+            <End Role="Lesson" EntitySet="Lessons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Instructor_ToEmployement" Association="Self.FK_Instructor_ToEmployement">
+            <End Role="Employement" EntitySet="Employements" />
+            <End Role="Instructor" EntitySet="Instructors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Instructor_ToStatus" Association="Self.FK_Instructor_ToStatus">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Instructor" EntitySet="Instructors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lesson_ToInstructor" Association="Self.FK_Lesson_ToInstructor">
+            <End Role="Instructor" EntitySet="Instructors" />
+            <End Role="Lesson" EntitySet="Lessons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lesson_ToRoom" Association="Self.FK_Lesson_ToRoom">
+            <End Role="Room" EntitySet="Rooms" />
+            <End Role="Lesson" EntitySet="Lessons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lesson_ToTime" Association="Self.FK_Lesson_ToTime">
+            <End Role="Time" EntitySet="Times" />
+            <End Role="Lesson" EntitySet="Lessons" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="StudiesModelStoreContainer" CdmEntityContainer="StudiesEntities">
+          <EntitySetMapping Name="Courses">
+            <EntityTypeMapping TypeName="StudiesModel.Course">
+              <MappingFragment StoreEntitySet="Course">
+                <ScalarProperty Name="CourseSK" ColumnName="CourseSK" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Days">
+            <EntityTypeMapping TypeName="StudiesModel.Day">
+              <MappingFragment StoreEntitySet="Day">
+                <ScalarProperty Name="DayID" ColumnName="DayID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employements">
+            <EntityTypeMapping TypeName="StudiesModel.Employement">
+              <MappingFragment StoreEntitySet="Employement">
+                <ScalarProperty Name="EmployementID" ColumnName="EmployementID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Instructors">
+            <EntityTypeMapping TypeName="StudiesModel.Instructor">
+              <MappingFragment StoreEntitySet="Instructor">
+                <ScalarProperty Name="InstructorSK" ColumnName="InstructorSK" />
+                <ScalarProperty Name="Salutation" ColumnName="Salutation" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="StatusFK" ColumnName="StatusFK" />
+                <ScalarProperty Name="EmployementFK" ColumnName="EmployementFK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Lessons">
+            <EntityTypeMapping TypeName="StudiesModel.Lesson">
+              <MappingFragment StoreEntitySet="Lesson">
+                <ScalarProperty Name="LessonSK" ColumnName="LessonSK" />
+                <ScalarProperty Name="CourseFK" ColumnName="CourseFK" />
+                <ScalarProperty Name="InstructorFK" ColumnName="InstructorFK" />
+                <ScalarProperty Name="DayFK" ColumnName="DayFK" />
+                <ScalarProperty Name="TimeFK" ColumnName="TimeFK" />
+                <ScalarProperty Name="RoomFK" ColumnName="RoomFK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rooms">
+            <EntityTypeMapping TypeName="StudiesModel.Room">
+              <MappingFragment StoreEntitySet="Room">
+                <ScalarProperty Name="RoomSK" ColumnName="RoomSK" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Status">
+            <EntityTypeMapping TypeName="StudiesModel.Status">
+              <MappingFragment StoreEntitySet="Status">
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Times">
+            <EntityTypeMapping TypeName="StudiesModel.Time">
+              <MappingFragment StoreEntitySet="Time">
+                <ScalarProperty Name="TimeID" ColumnName="TimeID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,44 @@
+﻿div{
+    margin: 10px;
+    padding: 15px;
+    border: 2px solid blue;
+    border-radius: 30px;
+}
+
+h1{
+    text-align: center;
+}
+
+h3 {
+    margin-right: 1250px;
+    padding: 10px;
+    border: 2px solid grey;
+    border-radius: 30px;
+}
+
+.cim {
+    margin-right: 1400px;
+}
+
+a {
+    background-color: lightgray;
+    padding: 10px;
+    border-radius: 30px;
+}
+
+a {
+    color: black;
+}
+
+    a:hover {
+        color: purple;
+    }
+
+    a:visited {
+        color: darkgreen;
+    }
+
+img {
+    display: block;
+    margin: auto;
+}

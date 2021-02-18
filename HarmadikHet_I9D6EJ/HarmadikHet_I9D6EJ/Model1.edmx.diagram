@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f5a43e6521724646bf029a143fe799b5" Name="Diagram1">
+        <EntityTypeShape EntityType="StudiesModel.Course" Width="1.5" PointX="2.75" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="StudiesModel.Day" Width="1.5" PointX="7.5" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="StudiesModel.Employement" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="StudiesModel.Instructor" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="StudiesModel.Lesson" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="StudiesModel.Room" Width="1.5" PointX="7.5" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="StudiesModel.Status" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="StudiesModel.Time" Width="1.5" PointX="6.625" PointY="5.375" IsExpanded="true" />
+        <AssociationConnector Association="StudiesModel.FK_Lesson_ToCourse" ManuallyRouted="false" />
+        <AssociationConnector Association="StudiesModel.FK_Lesson_ToDay" ManuallyRouted="false" />
+        <AssociationConnector Association="StudiesModel.FK_Instructor_ToEmployement" ManuallyRouted="false" />
+        <AssociationConnector Association="StudiesModel.FK_Instructor_ToStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="StudiesModel.FK_Lesson_ToInstructor" ManuallyRouted="false" />
+        <AssociationConnector Association="StudiesModel.FK_Lesson_ToRoom" ManuallyRouted="false" />
+        <AssociationConnector Association="StudiesModel.FK_Lesson_ToTime" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
