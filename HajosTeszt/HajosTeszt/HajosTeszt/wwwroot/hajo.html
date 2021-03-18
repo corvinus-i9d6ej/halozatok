@@ -4,21 +4,24 @@
     <meta charset="utf-8" />
     <title>Hajós teszt</title>
     <link href="hajo.css" rel="stylesheet" />
+    <script src="hetedik.js"></script>
 </head>
 <body>
     <div id="külső">
         <div id="kérdés_szöveg">Kérdés</div>
         <div id="középső">
             <div id="válaszok">
-                <div id="válasz1" class="kattintható">Válasz1</div>
-                <div id="válasz2" class="kattintható jó">Válasz2</div>
-                <div id="válasz3" class="kattintható rossz">Válasz3</div>
+                <div id="válasz1" onclick="klikk(1)" class="kattintható">Válasz1</div>
+                <div id="válasz2" onclick="klikk(2)" class="kattintható">Válasz2</div>
+                <div id="válasz3" onclick="klikk(3)" class="kattintható">Válasz3</div>
             </div>
-            <div id="kép">Kép</div>
+            <div>
+                <img id="kép" />
+            </div>
         </div>
         <div id="vezérlő">
-            <div class="kattintható" id="vissza">Vissza</div>
-            <div class="kattintható" id="következő">Következő</div>
+            <div class="kattintható" id="vissza" onclick="előző()">Vissza</div>
+            <div class="kattintható" id="következő" onclick="következő()">Következő</div>
         </div>
     </div>
 
