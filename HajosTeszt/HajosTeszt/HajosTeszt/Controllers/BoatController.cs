@@ -28,7 +28,7 @@ namespace HajosTeszt.Controllers
 
         [HttpGet]
         [Route("questions/count")]
-        public int M4() //Tetszőleges metódusnév
+        public int M4()
         {
             HajostesztContext context = new HajostesztContext();
             int kérdésekSzáma = context.Questions.Count();
